@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 class RegularComponent extends Component {
   render() {
+    console.log('rendering regular component with props', this.props.value);
     return (
       <div>
         <span>Regular:</span><br/>

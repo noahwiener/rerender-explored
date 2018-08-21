@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 
 class Pure extends PureComponent {
   render() {
+    console.log('rendering pure component with props', this.props.value);
     return (
       <div>
         <span>Pure:</span><br/>

@@ -1,31 +1,33 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import RegularComponent from './RegularComponent';
-import PureComponent from './PureComponent';
-
+import CaseForUsingRegular from './CaseForUsingRegular';
+import CaseForUsingPure from './CaseForUsingPure';
 
 class App extends Component {
-  stateToUpdate = {
-    topLevel: {
-      deepState: 'initalValue'
-    }
+  constructor(props) {
+    super(props);
+    this.state = { type: 'CaseForUsingRegular' }
   }
 
-  updateDeepState = () => {
-    this.stateToUpdate.topLevel.deepState = 'test'
-    this.forceUpdate();
+  toggle = () => {
+    if (this.state.type = 'caseForUsingRegular') {
+      return this.setState({type: 'caseForUsingPure'})
+    }
+    return this.setState({ type: 'caseForUsingRegular'})
   }
 
   render() {
+    const appToRender = this.state.caseForUsingRegular ?
+      <CaseForUsingRegular /> :
+      <CaseForUsingPure />
+
     return (
       <div className="App">
-        <RegularComponent state={this.stateToUpdate} />
+        {appToRender}
         <div>
-          <span>----</span>
+          <button onClick={this.toggle}>Toggle type</button>
         </div>
-        <PureComponent state={this.stateToUpdate} />
-        <button onClick={this.updateDeepState}>Update deep state</button>
       </div>
     );
   }

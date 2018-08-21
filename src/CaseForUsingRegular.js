@@ -3,15 +3,20 @@ import RegularComponent from './RegularComponent';
 import Pure from './Pure';
 
 class CaseForUsingRegular extends Component {
-  stateToUpdate = [
-    {value: {nestedValue: 'a'}},
-    {value: {nestedValue: 'b'}},
-    {value: {nestedValue: 'c'}}
-  ]
+  constructor(props){
+    super(props);
+    this.state = { items: [
+      {value: {nestedValue: 'a'}},
+      {value: {nestedValue: 'b'}},
+      {value: {nestedValue: 'c'}}
+    ]}
+  }
 
   update = () => {
-    this.stateToUpdate[0].value.nestedValue = `new - ${Math.random()}`
-    this.forceUpdate();
+    const itemToUpdate = this.state.items[0];
+    itemToUpdate.value.nestedValue = `new - ${Math.random()}`;
+    const newState = [itemToUpdate].concat(this.state.items.slice(1))
+    this.setState({items: newState});
   }
 
   render() {
@@ -24,7 +29,7 @@ class CaseForUsingRegular extends Component {
           </span>
           <div>----</div>
         </div>
-        {this.stateToUpdate.map((valueObject, idx) => (
+        {this.state.items.map((valueObject, idx) => (
           <div key={`CaseForUsingRegular-${idx}`}>
             <RegularComponent state={valueObject} />
             <Pure state={valueObject} />

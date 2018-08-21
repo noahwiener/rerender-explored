@@ -3,15 +3,20 @@ import RegularComponent from './RegularComponent';
 import Pure from './Pure';
 
 class CaseForUsingPure extends PureComponent {
-  stateToUpdate = [
-    {value: 'a'},
-    {value: 'b'},
-    {value: 'c'}
-  ]
+  constructor(props) {
+    super(props);
+    this.state = { items: [
+      {value: 'a'},
+      {value: 'b'},
+      {value: 'c'}
+    ]}
+  }
 
   update = () => {
-    this.stateToUpdate[0].value = `new value - ${Math.random()}`
-    this.forceUpdate();
+    let itemToUpdate = this.state.items[0];
+    itemToUpdate = { value: `new value - ${Math.random()}`};
+    const newState = [itemToUpdate].concat(this.state.items.slice(1))
+    this.setState({items: newState});
   }
 
   render() {
@@ -26,7 +31,7 @@ class CaseForUsingPure extends PureComponent {
           </span>
           <div>----</div>
         </div>
-        {this.stateToUpdate.map((valueObject, idx) => (
+        {this.state.items.map((valueObject, idx) => (
           <div key={`CaseForUsingPure-${idx}`}>
             <RegularComponent state={valueObject.value} />
             <Pure state={valueObject.value} />

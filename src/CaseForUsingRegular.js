@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import RegularComponent from './RegularComponent';
-import PureComponent from './PureComponent';
+import Pure from './Pure';
 
 class CaseForUsingRegular extends Component {
   stateToUpdate = [
@@ -10,26 +10,30 @@ class CaseForUsingRegular extends Component {
   ]
 
   update = () => {
-    this.stateToUpdate[0].value = 'new value'
+    this.stateToUpdate[0].value.nestedValue = `new - ${Math.random()}`
     this.forceUpdate();
   }
 
   render() {
     return (
       <div className="CaseForUsingRegular">
+        <div>
+          <span>
+            In this example, we are updating the nested value of the first item in the array. <br/>
+            As you see in the console logs, the pure component version does not rerender
+          </span>
+          <div>----</div>
+        </div>
         {this.stateToUpdate.map((valueObject, idx) => (
-          <div key={idx}>
+          <div key={`CaseForUsingRegular-${idx}`}>
             <RegularComponent state={valueObject} />
-            <div>
-              <span>----</span>
-            </div>
-            <PureComponent state={valueObject} />
+            <Pure state={valueObject} />
             <div>
               <span>----</span>
             </div>
           </div>
         ))}
-        <button onClick={this.update}>Update</button>
+        <button onClick={this.update}>Update The first item in the list</button>
       </div>
     );
   }

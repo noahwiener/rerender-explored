@@ -4,30 +4,27 @@ import './App.css';
 import RegularComponent from './RegularComponent';
 import PureComponent from './PureComponent';
 
+
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      topLevel: {
-        deepState: 'initalValue'
-      }
+  stateToUpdate = {
+    topLevel: {
+      deepState: 'initalValue'
     }
   }
 
   updateDeepState = () => {
-    this.setState({topLevel: {deepState: 'newValue'}});
+    this.stateToUpdate.topLevel.deepState = 'test'
+    this.forceUpdate();
   }
 
   render() {
-    const { topLevel } = this.state;
-
     return (
       <div className="App">
-        <RegularComponent topLevel={topLevel} />
+        <RegularComponent state={this.stateToUpdate} />
         <div>
           <span>----</span>
         </div>
-        <PureComponent topLevel={topLevel} />
+        <PureComponent state={this.stateToUpdate} />
         <button onClick={this.updateDeepState}>Update deep state</button>
       </div>
     );
